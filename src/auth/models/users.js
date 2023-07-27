@@ -52,7 +52,6 @@ const userModel = (sequelize, DataTypes) => {
     try {
       console.log(token, SECRET);
       const parsedToken = jwt.verify(token, SECRET);
-      console.log(parsedToken)
       const user = this.findOne({where: { username: parsedToken.username } });
       if (user) { return user; }
       throw new Error("User Not Found");
