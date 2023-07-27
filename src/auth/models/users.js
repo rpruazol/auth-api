@@ -43,6 +43,7 @@ const userModel = (sequelize, DataTypes) => {
 
   model.authenticateBasic = async function (username, password) {
     const user = await this.findOne({ where: { username } });
+    console.log(password, user.password) 
     const valid = await bcrypt.compare(password, user.password);
     if (valid) { return user; }
     throw new Error('Invalid User');
@@ -50,12 +51,13 @@ const userModel = (sequelize, DataTypes) => {
 
   model.authenticateToken = async function (token) {
     try {
-      console.log(token, SECRET);
+      console.log('parsed token', token, SECRET)
       const parsedToken = jwt.verify(token, SECRET);
       const user = this.findOne({where: { username: parsedToken.username } });
       if (user) { return user; }
       throw new Error("User Not Found");
     } catch (e) {
+      console.log(e.message)
       throw new Error(e.message)
     }
   };
