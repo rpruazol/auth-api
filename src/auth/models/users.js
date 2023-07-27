@@ -2,6 +2,8 @@
 
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+require('dotenv').config();
+
 
 const SECRET = process.env.SECRET || 'secretstring';
 
@@ -48,7 +50,9 @@ const userModel = (sequelize, DataTypes) => {
 
   model.authenticateToken = async function (token) {
     try {
+      console.log(token, SECRET);
       const parsedToken = jwt.verify(token, SECRET);
+      console.log(parsedToken)
       const user = this.findOne({where: { username: parsedToken.username } });
       if (user) { return user; }
       throw new Error("User Not Found");
