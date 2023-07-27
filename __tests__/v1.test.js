@@ -29,27 +29,27 @@ describe('v1 unauthenticated API routes', () => {
     type: 'fruit'
   }
   test('/:model POST route', async () => {
-    const res = await app.post('/food').send(fruit);
+    const res = await app.post('/api/v1/food').send(fruit);
     expect(res.status).toEqual(201)
   });
 
   test('/:model GET all route', async () => {
-    const res = await app.get('/food');
+    const res = await app.get('/api/v1/food');
     expect(res.status).toEqual(200)
   });
 
   test('/:model/:id GET one route', async () => {
-    const res = await app.get('/food/1');
+    const res = await app.get('/api/v1/food/1');
     expect(res.status).toEqual(200)
   });
 
   test('/:model/:id PUT route', async () => {
-    const res = await app.put('/food/1').send({calories: 120});
+    const res = await app.put('/api/v1/food/1').send({calories: 120});
     expect(JSON.parse(res.text).calories).toEqual(120);
   });
 
   test('/:model/:id DELETE route', async () => {
-    const res = await app.delete('/food/1').send(fruit);
+    const res = await app.delete('/api/v1/food/1').send(fruit);
     expect(res.status).toEqual(200);
   });
 

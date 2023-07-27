@@ -22,6 +22,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Routes
+app.get('/', (req,res) => {
+  res.send('welcome to my app!')
+})
 app.use(authRoutes);
 app.use(v1Routes);
 app.use(v2Routes);
