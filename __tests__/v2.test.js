@@ -45,7 +45,7 @@ describe('v2 AUTHENTICATED API routes', () => {
   }
   
   
-  test('/:model POST route', async () => {
+  test('/:model POST route (protected)', async () => {
     // const signin = await app.post('/signin').auth(admin.username,admin.password);
     const res = await app.post('/api/v2/clothes')
     .set('Authorization', `Bearer ${token}`)
@@ -53,25 +53,36 @@ describe('v2 AUTHENTICATED API routes', () => {
     expect(res.status).toEqual(201)
   });
 
-  // test('/:model GET all route', async () => {
-  //   const res = await app.get('/api/v2/clothes');
-  //   expect(res.status).toEqual(200)
-  //   expect(res.text).toEqual
-  // });
+  test('/:model GET all route (protected)', async () => {
+    const res = await app.get('/api/v2/clothes')
+    .set('Authorization', `Bearer ${token}`)
+    expect(res.status).toEqual(200)
+    expect(JSON.parse(res.text).length).toEqual(1);
+  });
 
-  // test('/:model/:id GET one route', async () => {
-  //   const res = await app.get('/food/1');
-  //   expect(res.status).toEqual(200)
-  // });
+  test('/:model/:id GET one route (protected)', async () => {
+    const res = await app.get('/api/v2/clothes/1')
+    .set('Authorization', `Bearer ${token}`)
+    expect(res.status).toEqual(200)
+    expect(JSON.parse(res.text).id).toEqual(1);
+  });
 
-  // test('/:model/:id PUT route', async () => {
-  //   const res = await app.put('/food/1').send({calories: 120});
-  //   expect(JSON.parse(res.text).calories).toEqual(120);
-  // });
+  test('/:model/:id PUT route (protected) ', async () => {
+    const res = await app.put('/api/v2/clothes/1')
+    .set('Authorization', `Bearer ${token}`)
+    .send({color: 'Tropical Rain Forest'});
+    expect(JSON.parse(res.text).color).toEqual('Tropical Rain Forest');
+  });
 
-  // test('/:model/:id DELETE route', async () => {
-  //   const res = await app.delete('/food/1').send(fruit);
-  //   expect(res.status).toEqual(200);
-  // });
+  test('/:model/:id DELETE route (protected)', async () => {
+    let res = await app.delete('/api/v2/clothes/1')
+    .set('Authorization', `Bearer ${token}`);
+    expect(res.status).toEqual(200);
+     
+    res = await app.get('/api/v2/clothes')
+    .set('Authorization', `Bearer ${token}`)
+    expect(res.status).toEqual(200)
+    expect(JSON.parse(res.text).length).toEqual(0);
+  });
 
 })

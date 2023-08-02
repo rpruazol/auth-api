@@ -4,33 +4,26 @@
 
 ### Author: Ray Ruazol
 
-- [tests report](https://github.com/codefellows/code-401-javascript-example-lab/actions)
-- [front-end](https://code-401-js-lab-example.herokuapp.com/status)
+- [tests report](https://github.com/rpruazol/auth-api/actions/runs/5676547365)
+- [back-end](https://auth-api-dlm8.onrender.com/)
+- [most recent PR](https://github.com/rpruazol/auth-api/pull/2)
 
 ### Setup
 
 #### `.env` requirements
 
 - `PORT` - Port Number
+- `SECRET` - String for JWT tokens
+- `DATABASE_URL` - database url to your postgres db
 
 #### Running the app
 
 - `npm start`
-- Endpoint: `/status`
-  - Returns Object
-
-    ```javascript
-    {
-      "domain": "john-api-server.demo.herokuapp.com",
-      "status": "running",
-      "port": 42123
-    }
-    ```
+- Endpoint: `index.js`
 
 #### Tests
 
 - Unit Tests: `npm run test`
-- Lint Tests: `npm run lint`
 
 #### UML
 
